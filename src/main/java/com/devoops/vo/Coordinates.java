@@ -1,4 +1,4 @@
-package com.devoops;
+package com.devoops.vo;
 
 import com.devoops.exception.OdsayUtilException;
 import java.math.BigDecimal;
@@ -30,6 +30,14 @@ public class Coordinates {
         } catch (NumberFormatException exception) {
             throw new OdsayUtilException("Double로 변환 불가능한 좌표입니다.");
         }
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
     }
 }
 
