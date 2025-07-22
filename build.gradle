@@ -52,7 +52,6 @@ mavenPublishing {
                 name = 'Geon Woo Kim'
                 email = 'kkwoo001021@naver.com'
             }
-            // 다른 개발자 정보 추가 가능...
         }
 
         /**
