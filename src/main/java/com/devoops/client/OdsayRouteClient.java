@@ -4,35 +4,31 @@ import com.devoops.dto.OdsayResponse;
 import com.devoops.exception.OdsayUtilException;
 import com.devoops.mapper.OdsayResponseMapper;
 import com.devoops.vo.Coordinates;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Component
-@RequiredArgsConstructor
 public class OdsayRouteClient {
 
     private static final String BASE_URL = "https://api.odsay.com/v1/api/searchPubTransPathT";
 
-    private final String apiKey;
     private final RestClient restClient;
 
-    public OdsayRouteClient(String apiKey, RestClient.Builder builder) {
-        this(apiKey, builder.build());
+    public OdsayRouteClient(RestClient.Builder restClientBuilder) {
+        this.restClient = restClientBuilder.build();
     }
 
-    public long calculateRouteMinutes(Coordinates origin, Coordinates target) {
-        OdsayResponse response = getOdsayResponse(origin, target);
+    public long calculateRouteMinutes(String apiKey, Coordinates origin, Coordinates target) {
+        OdsayResponse response = getOdsayResponse(apiKey, origin, target);
         return responseToRouteTime(response);
     }
 
-    private OdsayResponse getOdsayResponse(Coordinates origin, Coordinates target) {
+    private OdsayResponse getOdsayResponse(String apiKey, Coordinates origin, Coordinates target) {
         OdsayResponse response = restClient.get()
-                .uri(makeURI(origin, target))
+                .uri(makeURI(apiKey, origin, target))
                 .retrieve()
                 .body(OdsayResponse.class);
         return Objects.requireNonNullElseGet(response, () -> {
@@ -40,7 +36,7 @@ public class OdsayRouteClient {
         });
     }
 
-    private URI makeURI(Coordinates origin, Coordinates target) {
+    private URI makeURI(String apiKey, Coordinates origin, Coordinates target) {
         String uri = BASE_URL
                 + "?SX=" + origin.getLongitude()
                 + "&SY=" + origin.getLatitude()

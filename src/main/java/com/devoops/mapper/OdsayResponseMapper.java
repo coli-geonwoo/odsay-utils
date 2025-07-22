@@ -17,6 +17,7 @@ public class OdsayResponseMapper {
     private static final String ODSAY_SERVER_ERROR = "500";
 
     public static long mapMinutes(OdsayResponse response) {
+        log.info("Odsay response: {}", response);
         if (response == null) {
             throw new OdsayUtilException("오디세이로부터 온 응답이 null입니다");
         }
