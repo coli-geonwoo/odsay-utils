@@ -74,11 +74,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
+    compileOnly 'org.springframework.boot:spring-boot-starter-validation'
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    compileOnly 'com.fasterxml.jackson.core:jackson-core:2.17.0'
+    compileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
 
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
