@@ -1,6 +1,8 @@
 package com.devoops.mapper;
 
 import com.devoops.dto.OdsayResponse;
+import com.devoops.exception.OdsayBadRequestException;
+import com.devoops.exception.OdsayClosestPlaceException;
 import com.devoops.exception.OdsayUtilException;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -20,7 +22,7 @@ public class OdsayResponseMapper {
         }
 
         if (isCloseLocation(response)) {
-            return -1;
+            throw new OdsayClosestPlaceException("출발지와 도착지가 700m이내입니다");
         }
 
         if (response.code().isPresent()) {
@@ -42,7 +44,7 @@ public class OdsayResponseMapper {
             throw new OdsayUtilException("오디세이 서버 에러");
         }
 
-        throw new OdsayUtilException("ODSay BAD REQUEST Error: " + response);
+        throw new OdsayBadRequestException("ODSay BAD REQUEST Error: " + response);
     }
 
     private static boolean isServerErrorCode(OdsayResponse response) {
