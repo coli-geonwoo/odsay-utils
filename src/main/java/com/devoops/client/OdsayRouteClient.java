@@ -16,6 +16,8 @@ import org.springframework.web.client.RestClient;
 @RequiredArgsConstructor
 public class OdsayRouteClient {
 
+    private static final String BASE_URL = "https://api.odsay.com/v1/api/searchPubTransPathT";
+
     private final String apiKey;
     private final RestClient restClient;
 
@@ -39,7 +41,7 @@ public class OdsayRouteClient {
     }
 
     private URI makeURI(Coordinates origin, Coordinates target) {
-        String uri = "https://api.odsay.com/v1/api/searchPubTransPathT"
+        String uri = BASE_URL
                 + "?SX=" + origin.getLongitude()
                 + "&SY=" + origin.getLatitude()
                 + "&EX=" + target.getLongitude()
