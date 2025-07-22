@@ -2,7 +2,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.devoops.client.OdsayRouteClient;
-import com.devoops.config.SpringConfig;
 import com.devoops.exception.OdsayBadRequestException;
 import com.devoops.exception.OdsayClosestPlaceException;
 import com.devoops.exception.OdsayUtilException;
@@ -12,16 +11,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.client.RestClient;
 
 @Disabled
-@SpringBootTest(classes = {OdsayRouteClient.class, SpringConfig.class})
+@SpringBootTest(classes = {OdsayRouteClient.class})
 public class OdsayClientTest {
 
     String apiKey;
-
-    @Autowired
-    RestClient.Builder restClientBuilder;
 
     @Autowired
     OdsayRouteClient odsayRouteClient;

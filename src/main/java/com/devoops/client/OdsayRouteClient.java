@@ -7,10 +7,8 @@ import com.devoops.vo.Coordinates;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-@Component
 public class OdsayRouteClient {
 
     private static final String BASE_URL = "https://api.odsay.com/v1/api/searchPubTransPathT";
