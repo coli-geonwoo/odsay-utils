@@ -66,13 +66,13 @@ public void init(RestClient restClient) {
 ```
 
 ### OdsayRouteClient 에러객체
-| Exception                   | Description                   |
-|-----------------------------|-------------------------------|
-| OdsayException              | 오디세이 Util에서 발생가능한 최상위 에러. ㅐㄱ체 |
-| OdsayUtilException          | 오디세이 서버 자체 에러                 |
-| OdsayWrongApiKeyException   | apiKey 에러 or IP 미등록           |
-| OdsayClosestPlaceException  | 출발지와 도착지가 700m 이내일 때          |
-| OdsayTooManyRequetException | 1초당 허용가능한 호출량을 초과했을 때         |
-| OdsayBadRequestException    | wrong input value             |
+| Exception                    | Description                 |
+|------------------------------|-----------------------------|
+| OdsayException               | 오디세이 Util에서 발생가능한 최상위 에러 객체 |
+| OdsayUtilException           | 오디세이 서버 자체 에러               |
+| OdsayWrongApiKeyException    | apiKey 에러 or IP 미등록         |
+| OdsayClosestPlaceException   | 출발지와 도착지가 700m 이내일 때        |
+| OdsayTooManyRequestException | 1초당 허용가능한 호출량을 초과했을 때       |
+| OdsayBadRequestException     | wrong input value           |
 
 

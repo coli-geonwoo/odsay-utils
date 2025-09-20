@@ -33,7 +33,7 @@ mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
 
-    coordinates("io.github.coli-geonwoo", "odsay-utils", "1.0.1") // 네임 스페이스, 라이브러리 이름, 버전 순서로 작성
+    coordinates("io.github.coli-geonwoo", "odsay-utils", "1.1.0") // 네임 스페이스, 라이브러리 이름, 버전 순서로 작성
 
     // POM 설정
     pom {
