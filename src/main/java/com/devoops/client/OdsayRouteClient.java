@@ -6,6 +6,8 @@ import com.devoops.mapper.OdsayResponseMapper;
 import com.devoops.vo.Coordinates;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import org.springframework.web.client.RestClient;
 
@@ -14,13 +16,22 @@ public class OdsayRouteClient {
     private static final String BASE_URL = "https://api.odsay.com/v1/api/searchPubTransPathT";
 
     private final RestClient restClient;
+    private final OdsayApiKeys odsayAPiKeys;
 
-    public OdsayRouteClient(RestClient.Builder restClientBuilder) {
+    public OdsayRouteClient(RestClient.Builder restClientBuilder, String ... apiKeys) {
         this.restClient = restClientBuilder.build();
+        this.odsayAPiKeys = new OdsayApiKeys(apiKeys);
+    }
+
+    public long calculateRouteMinutes(Coordinates origin, Coordinates target) {
+        String apiKey = odsayAPiKeys.getNextKey();
+        OdsayResponse response = getOdsayResponse(apiKey, origin, target);
+        return responseToRouteTime(response);
     }
 
     public long calculateRouteMinutes(String apiKey, Coordinates origin, Coordinates target) {
-        OdsayResponse response = getOdsayResponse(apiKey, origin, target);
+        String encodedApiKey = URLEncoder.encode(apiKey, StandardCharsets.UTF_8);
+        OdsayResponse response = getOdsayResponse(encodedApiKey, origin, target);
         return responseToRouteTime(response);
     }
 
