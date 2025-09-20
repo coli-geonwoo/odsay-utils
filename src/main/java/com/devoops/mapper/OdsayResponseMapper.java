@@ -3,6 +3,7 @@ package com.devoops.mapper;
 import com.devoops.dto.OdsayResponse;
 import com.devoops.exception.OdsayBadRequestException;
 import com.devoops.exception.OdsayClosestPlaceException;
+import com.devoops.exception.OdsayTooManyRequestException;
 import com.devoops.exception.OdsayUtilException;
 import com.devoops.exception.OdsayWrongApiKeyException;
 import java.util.Optional;
@@ -16,6 +17,7 @@ public class OdsayResponseMapper {
 
     private static final String WRONG_API_KEY_MESSAGE = "[ApiKeyAuthFailed] ApiKey authentication failed.";
     private static final String CLOSE_LOCATION_CODE = "-98"; //출발지-도착지가 700m 이내일 때
+    private static final String TOO_MANY_REQUEST_CODE = "429"; //1초당 호출 가능량을 넘었을 때
     private static final String ODSAY_SERVER_ERROR = "500";
 
     public static long mapMinutes(OdsayResponse response) {
@@ -26,6 +28,10 @@ public class OdsayResponseMapper {
 
         if (isCloseLocation(response)) {
             throw new OdsayClosestPlaceException("출발지와 도착지가 700m이내입니다");
+        }
+
+        if(isTooManyRequest(response)) {
+            throw new OdsayTooManyRequestException("1초당 호출 가능한 횟수를 초과하였습니다");
         }
 
         if (response.code().isPresent()) {
@@ -39,6 +45,11 @@ public class OdsayResponseMapper {
     private static boolean isCloseLocation(OdsayResponse response) {
         Optional<String> code = response.code();
         return code.isPresent() && CLOSE_LOCATION_CODE.equals(code.get());
+    }
+
+    private static boolean isTooManyRequest(OdsayResponse response) {
+        Optional<String> code = response.code();
+        return code.isPresent() && TOO_MANY_REQUEST_CODE.equals(code.get());
     }
 
     private static void checkOdsayException(OdsayResponse response) {
